@@ -7,13 +7,12 @@ er2=zeros(ni,1);                    %error
 er0a=zeros(ni,1);                   %missed detections
 er0b=zeros(ni,1);                   %wrong detections
 xo=zeros(N,1);                      %initialization of solution
-g=-2*Ab;%-Ab/beta;
-mu0=.2;%1;%.5;  %%%%%%%%%
+g=-2*Ab;
+mu0=.2;
 x=wthresh(-mu0*g,'s',mu0*lam);
 y=1/(x'*x+1);
 c=y*norm(A*x-b)^2;
 muo=mu0;
-%mui=zeros(ni,1);
 
 for nn=1:ni                         %iterations loop
     
@@ -23,7 +22,7 @@ for nn=1:ni                         %iterations loop
     g=2*y*(AA*x-Ab-co*x);
     
     %calculate step-size
-    if (x-xo)'*(g-go)==0            % && (g-go)'*(g-go)~=0
+    if (x-xo)'*(g-go)==0
         mu=muo;
     else
         mus=((x-xo)'*(x-xo))/((x-xo)'*(g-go));
@@ -49,7 +48,6 @@ for nn=1:ni                         %iterations loop
         end
         mu=mu/2;
     end
-    %mui(nn)=c;    %%%%%%%%%%%
     muo=mu;
     xo=x;
     x=z;
